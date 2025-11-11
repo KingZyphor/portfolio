@@ -1,6 +1,30 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("Sending...");
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    if (res.ok) {
+      setStatus("✅ Message sent successfully!");
+      setForm({ name: "", email: "", message: "" });
+    } else {
+      setStatus("❌ Something went wrong. Please try again later.");
+    }
+  }
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-zinc-50 to-zinc-100 px-6 py-20 text-zinc-900 dark:from-black dark:to-zinc-900 dark:text-zinc-50">
       <main className="w-full max-w-4xl text-center sm:text-left">
@@ -82,13 +106,49 @@ export default function Home() {
             I’m always open to connecting with other developers, creators, or anyone who wants to
             collaborate on interesting projects. Feel free to reach out — I’d love to hear from you!
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
-            <a
-              href="mailto:mediazyphor@gmail.com"
+
+          <form
+            onSubmit={handleSubmit}
+            className="max-w-md mx-auto sm:mx-0 flex flex-col gap-4"
+          >
+            <input
+              type="text"
+              placeholder="Your Name"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              required
+              className="w-full rounded-md border border-zinc-300 bg-white dark:bg-zinc-900 dark:border-zinc-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <input
+              type="email"
+              placeholder="Your Email"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              required
+              className="w-full rounded-md border border-zinc-300 bg-white dark:bg-zinc-900 dark:border-zinc-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <textarea
+              placeholder="Your Message"
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+              required
+              rows={5}
+              className="w-full rounded-md border border-zinc-300 bg-white dark:bg-zinc-900 dark:border-zinc-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              type="submit"
               className="rounded-full bg-blue-600 px-6 py-3 text-white font-medium transition hover:bg-blue-700"
             >
-              Email Me
-            </a>
+              Send Message
+            </button>
+            {status && (
+              <p className="text-sm text-center sm:text-left text-zinc-600 dark:text-zinc-400">
+                {status}
+              </p>
+            )}
+          </form>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start mt-8">
             <a
               href="https://github.com/KingZyphor"
               target="_blank"
