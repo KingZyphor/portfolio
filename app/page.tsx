@@ -144,25 +144,25 @@ export default function Home() {
         </nav>
 
         {/* Main Content Container */}
-        <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+        <main className="max-w-6xl mx-auto px-6 py-20">
           
           {/* ================================================================
               HERO SECTION
               ================================================================ */}
-          <section className="min-h-[70vh] sm:min-h-[80vh] flex flex-col justify-center items-center text-center mb-20 sm:mb-32">
-            <div className="mb-6 sm:mb-8 relative">
+          <section className="min-h-[80vh] flex flex-col justify-center items-center text-center mb-32">
+            <div className="mb-8 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-3xl opacity-20" />
               <Image
                 src="/profile.jpg"
                 alt="Profile photo of KingZyphor"
-                width={120}
-                height={120}
-                className="relative rounded-full shadow-2xl border-4 border-white dark:border-zinc-800 sm:w-[140px] sm:h-[140px]"
+                width={140}
+                height={140}
+                className="relative rounded-full shadow-2xl border-4 border-white dark:border-zinc-800"
                 priority
               />
             </div>
 
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-4 sm:mb-6 px-4">
+            <h1 className="text-6xl md:text-7xl font-bold tracking-tight mb-6">
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Building the Web
               </span>
@@ -170,14 +170,14 @@ export default function Home() {
               <span className="text-zinc-900 dark:text-zinc-100">One Line at a Time</span>
             </h1>
 
-            <p className="max-w-2xl text-base sm:text-xl text-zinc-700 dark:text-zinc-300 leading-relaxed mb-6 sm:mb-8 px-4">
+            <p className="max-w-2xl text-xl text-zinc-700 dark:text-zinc-300 leading-relaxed mb-8">
               Beginner web developer passionate about{" "}
               <span className="text-blue-600 dark:text-blue-400 font-semibold">modern web technologies</span>{" "}
               and creating intuitive user experiences with{" "}
               <span className="text-purple-600 dark:text-purple-400 font-semibold">clean, readable code</span>.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full px-4 sm:w-auto">
+            <div className="flex gap-4">
               <a href="#contact" className="btn-primary">
                 Get in Touch
               </a>
@@ -190,10 +190,10 @@ export default function Home() {
           {/* ================================================================
               ABOUT SECTION
               ================================================================ */}
-          <section id="about" className="mb-20 sm:mb-32 scroll-mt-20">
+          <section id="about" className="mb-32 scroll-mt-20">
             <h2 className="section-title">About Me</h2>
             
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
               {/* Card 1: Journey */}
               <div className="feature-card">
                 <div className="text-4xl mb-4">🚀</div>
@@ -249,10 +249,10 @@ export default function Home() {
           {/* ================================================================
               SKILLS SECTION
               ================================================================ */}
-          <section id="skills" className="mb-20 sm:mb-32 scroll-mt-20">
+          <section id="skills" className="mb-32 scroll-mt-20">
             <h2 className="section-title">My Current Skills</h2>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {SKILLS.map((skill) => (
                 <div key={skill.name} className="skill-card">
                   <div className="flex items-center justify-between mb-2">
@@ -270,8 +270,8 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="mt-6 sm:mt-8 text-center">
-              <p className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 font-medium">
+            <div className="mt-8 text-center">
+              <p className="text-zinc-700 dark:text-zinc-300 font-medium">
                 <span className="text-green-500">🌱</span> Currently learning and actively improving
               </p>
             </div>
@@ -280,11 +280,11 @@ export default function Home() {
           {/* ================================================================
               CONTACT SECTION
               ================================================================ */}
-          <section id="contact" className="mb-20 sm:mb-32 scroll-mt-20">
+          <section id="contact" className="mb-32 scroll-mt-20">
             <h2 className="section-title">Let's Connect</h2>
             
             <div className="max-w-2xl mx-auto">
-              <p className="text-center text-base sm:text-lg text-zinc-700 dark:text-zinc-300 mb-8 sm:mb-12 px-4">
+              <p className="text-center text-zinc-700 dark:text-zinc-300 text-lg mb-12">
                 I'm always open to connecting with other developers, creators, or anyone who wants to
                 collaborate on interesting projects. Feel free to reach out — I'd love to hear from you!
               </p>
@@ -376,7 +376,7 @@ export default function Home() {
               </form>
 
               {/* Social Links */}
-              <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mt-6 sm:mt-8">
+              <div className="flex flex-wrap gap-4 justify-center mt-8">
                 {SOCIAL_LINKS.map((link) => (
                   <a
                     key={link.name}
