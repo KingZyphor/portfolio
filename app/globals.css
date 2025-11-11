@@ -1,26 +1,356 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================================
+   GLOBAL STYLES
+   ============================================================================ */
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================================================
+   COMPONENT STYLES - Vite.dev Inspired
+   ============================================================================ */
+
+/* Navigation Link Styles */
+.nav-link {
+  color: rgb(82 82 91);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: rgb(24 24 27);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  .nav-link {
+    color: rgb(161 161 170);
+  }
+  
+  .nav-link:hover {
+    color: rgb(250 250 250);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Section Title Styles */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: rgb(24 24 27);
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .section-title {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .section-title {
+    color: rgb(250 250 250);
+  }
+}
+
+/* Feature Card Styles - Vite.dev Style */
+.feature-card {
+  position: relative;
+  background: linear-gradient(to bottom right, rgb(250 250 250), rgb(255 255 255));
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(228, 228, 231, 0.5);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .feature-card {
+    background: linear-gradient(to bottom right, rgba(24, 24, 27, 0.5), rgba(24, 24, 27, 0.3));
+    border-color: rgba(39, 39, 42, 0.5);
+  }
+}
+
+/* Gradient border on hover */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+/* Info Panel - Clean Vite Style */
+.info-panel {
+  position: relative;
+  background: linear-gradient(to bottom right, rgb(250 250 250), rgb(255 255 255), rgb(250 250 250));
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid rgba(228, 228, 231, 0.8);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  .info-panel {
+    background: linear-gradient(to bottom right, rgba(24, 24, 27, 0.3), rgba(24, 24, 27, 0.5), rgba(24, 24, 27, 0.3));
+    border-color: rgba(39, 39, 42, 0.8);
+  }
+}
+
+/* Skill Card Styles - Vite.dev Inspired */
+.skill-card {
+  position: relative;
+  background: linear-gradient(to bottom right, rgb(255 255 255), rgb(250 250 250));
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(228, 228, 231, 0.6);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.skill-card:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .skill-card {
+    background: linear-gradient(to bottom right, rgba(24, 24, 27, 0.4), rgba(24, 24, 27, 0.6));
+    border-color: rgba(39, 39, 42, 0.6);
+  }
+}
+
+/* Subtle hover gradient border */
+.skill-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(147, 51, 234, 0.15));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.skill-card:hover::before {
+  opacity: 1;
+}
+
+/* Contact Form - Clean Design */
+.contact-form {
+  position: relative;
+  background: rgb(255 255 255);
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid rgb(228 228 231);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .contact-form {
+    background: rgba(24, 24, 27, 0.5);
+    border-color: rgb(39 39 42);
+  }
+}
+
+/* Primary Button - Vite Style Gradient */
+.btn-primary {
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, rgb(37 99 235), rgb(147 51 234));
+  border-radius: 9999px;
+  color: rgb(255 255 255);
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.25);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.4);
+}
+
+/* Animated gradient overlay on hover */
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+/* Secondary Button - Clean Outline Style */
+.btn-secondary {
+  padding: 1rem 2rem;
+  background: rgb(255 255 255);
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: rgb(24 24 27);
+  border: 1px solid rgb(212 212 216);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-color: rgb(161 161 170);
+}
+
+@media (prefers-color-scheme: dark) {
+  .btn-secondary {
+    background: rgb(24 24 27);
+    color: rgb(250 250 250);
+    border-color: rgb(63 63 70);
+  }
+  
+  .btn-secondary:hover {
+    border-color: rgb(82 82 91);
+  }
+}
+
+/* Submit Button */
+.btn-submit {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, rgb(37 99 235), rgb(147 51 234));
+  border-radius: 0.75rem;
+  color: rgb(255 255 255);
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-submit:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-submit:disabled:hover {
+  transform: translateY(0);
+}
+
+.btn-submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn-submit:hover::before {
+  opacity: 1;
+}
+
+/* Input Field Styles - Clean Vite Style */
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgb(255 255 255);
+  border: 1px solid rgb(212 212 216);
+  border-radius: 0.75rem;
+  color: rgb(24 24 27);
+  transition: all 0.2s;
+}
+
+.input-field::placeholder {
+  color: rgb(161 161 170);
+}
+
+.input-field:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: rgba(59, 130, 246, 0.5);
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  .input-field {
+    background: rgba(24, 24, 27, 0.5);
+    border-color: rgb(39 39 42);
+    color: rgb(250 250 250);
+  }
+  
+  .input-field::placeholder {
+    color: rgb(82 82 91);
+  }
+}
+
+/* Social Link Styles - Vite.dev Inspired */
+.social-link {
+  background: linear-gradient(to bottom right, rgb(255 255 255), rgb(250 250 250));
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid rgba(228, 228, 231, 0.6);
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  color: rgb(24 24 27);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.social-link:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-color: rgb(212 212 216);
+}
+
+@media (prefers-color-scheme: dark) {
+  .social-link {
+    background: linear-gradient(to bottom right, rgba(24, 24, 27, 0.5), rgba(24, 24, 27, 0.3));
+    border-color: rgba(39, 39, 42, 0.6);
+    color: rgb(250 250 250);
+  }
+  
+  .social-link:hover {
+    border-color: rgb(63 63 70);
+  }
 }
