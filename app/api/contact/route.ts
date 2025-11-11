@@ -1,4 +1,3 @@
-console.log("Resend API Key:", process.env.RESEND_API_KEY);
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
