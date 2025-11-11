@@ -15,11 +15,17 @@ interface ContactForm {
 
 type StatusMessage = "" | "sending" | "success" | "error";
 
+type Skill = {
+  name: string;
+  category: string;
+  badge?: string; // <- made optional
+};
+
 // ============================================================================
 // CONSTANTS & DATA
 // ============================================================================
 
-const SKILLS = [
+const SKILLS: Skill[] = [
   { name: "HTML5", category: "Core" },
   { name: "CSS3", category: "Core" },
   { name: "JavaScript (ES6+)", category: "Core" },
@@ -28,7 +34,7 @@ const SKILLS = [
   { name: "React", category: "Learning", badge: "🌱" },
   { name: "Next.js", category: "Learning", badge: "🌱" },
   { name: "Tailwind CSS", category: "Learning", badge: "🌱" },
-] as const;
+];
 
 const SOCIAL_LINKS = [
   {
@@ -59,10 +65,6 @@ export default function Home() {
   // EVENT HANDLERS
   // --------------------------------------------------------------------------
 
-  /**
-   * Handles contact form submission
-   * Sends form data to the API endpoint and manages loading/success states
-   */
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
@@ -77,8 +79,6 @@ export default function Home() {
       if (res.ok) {
         setStatus("success");
         setForm({ name: "", email: "", message: "" });
-        
-        // Reset success message after 5 seconds
         setTimeout(() => setStatus(""), 5000);
       } else {
         setStatus("error");
@@ -89,9 +89,6 @@ export default function Home() {
     }
   }
 
-  /**
-   * Updates form field values
-   */
   function handleInputChange(
     field: keyof ContactForm,
     value: string
@@ -99,9 +96,6 @@ export default function Home() {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
-  /**
-   * Returns appropriate status message based on current state
-   */
   function getStatusMessage(): string {
     switch (status) {
       case "sending":
@@ -121,11 +115,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-zinc-950 dark:via-zinc-900 dark:to-black">
-      {/* Subtle Gradient Overlay */}
       <div className="fixed inset-0 bg-gradient-to-tr from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none" />
       
       <div className="relative">
-        {/* Navigation Bar */}
         <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800/50 shadow-sm">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
             <div className="flex items-center justify-between">
@@ -133,7 +125,6 @@ export default function Home() {
                 <span className="text-xl sm:text-2xl">⚡</span>
                 <span className="font-bold text-sm sm:text-base text-zinc-900 dark:text-zinc-100">KingZyphor</span>
               </div>
-              
               <div className="flex gap-3 sm:gap-6">
                 <a href="#about" className="nav-link">About</a>
                 <a href="#skills" className="nav-link">Skills</a>
@@ -143,12 +134,7 @@ export default function Home() {
           </div>
         </nav>
 
-        {/* Main Content Container */}
         <main className="max-w-6xl mx-auto px-6 py-20">
-          
-          {/* ================================================================
-              HERO SECTION
-              ================================================================ */}
           <section className="min-h-[80vh] flex flex-col justify-center items-center text-center mb-32">
             <div className="mb-8 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-3xl opacity-20" />
@@ -187,14 +173,10 @@ export default function Home() {
             </div>
           </section>
 
-          {/* ================================================================
-              ABOUT SECTION
-              ================================================================ */}
           <section id="about" className="mb-32 scroll-mt-20">
             <h2 className="section-title">About Me</h2>
             
             <div className="grid md:grid-cols-3 gap-6 mb-12">
-              {/* Card 1: Journey */}
               <div className="feature-card">
                 <div className="text-4xl mb-4">🚀</div>
                 <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
@@ -206,7 +188,6 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Card 2: Focus */}
               <div className="feature-card">
                 <div className="text-4xl mb-4">💡</div>
                 <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
@@ -218,7 +199,6 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Card 3: Goals */}
               <div className="feature-card">
                 <div className="text-4xl mb-4">🎯</div>
                 <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
@@ -246,9 +226,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* ================================================================
-              SKILLS SECTION
-              ================================================================ */}
           <section id="skills" className="mb-32 scroll-mt-20">
             <h2 className="section-title">My Current Skills</h2>
             
@@ -277,9 +254,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* ================================================================
-              CONTACT SECTION
-              ================================================================ */}
           <section id="contact" className="mb-32 scroll-mt-20">
             <h2 className="section-title">Let's Connect</h2>
             
@@ -289,15 +263,10 @@ export default function Home() {
                 collaborate on interesting projects. Feel free to reach out — I'd love to hear from you!
               </p>
 
-              {/* Contact Form */}
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="space-y-6">
-                  {/* Name Input */}
                   <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2"
-                    >
+                    <label htmlFor="name" className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
                       Your Name
                     </label>
                     <input
@@ -311,12 +280,8 @@ export default function Home() {
                     />
                   </div>
 
-                  {/* Email Input */}
                   <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2"
-                    >
+                    <label htmlFor="email" className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
                       Your Email
                     </label>
                     <input
@@ -330,12 +295,8 @@ export default function Home() {
                     />
                   </div>
 
-                  {/* Message Textarea */}
                   <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2"
-                    >
+                    <label htmlFor="message" className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
                       Your Message
                     </label>
                     <textarea
@@ -349,16 +310,10 @@ export default function Home() {
                     />
                   </div>
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={status === "sending"}
-                    className="btn-submit"
-                  >
+                  <button type="submit" disabled={status === "sending"} className="btn-submit">
                     {status === "sending" ? "Sending..." : "Send Message"}
                   </button>
 
-                  {/* Status Message */}
                   {status && (
                     <div
                       className={`text-center text-sm p-4 rounded-lg font-medium ${
@@ -375,7 +330,6 @@ export default function Home() {
                 </div>
               </form>
 
-              {/* Social Links */}
               <div className="flex flex-wrap gap-4 justify-center mt-8">
                 {SOCIAL_LINKS.map((link) => (
                   <a
@@ -394,9 +348,6 @@ export default function Home() {
           </section>
         </main>
 
-        {/* ================================================================
-            FOOTER
-            ================================================================ */}
         <footer className="border-t border-zinc-200 dark:border-zinc-800 py-12 bg-zinc-50 dark:bg-zinc-950">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
@@ -409,8 +360,7 @@ export default function Home() {
           </div>
         </footer>
       </div>
-
-
     </div>
   );
 }
+// ============================================================================
