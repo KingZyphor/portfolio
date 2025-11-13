@@ -2,23 +2,17 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import Navigation from "./components/Navigation";
 
 // ============================================================================
 // TYPE DEFINITIONS
 // ============================================================================
 
-interface ContactForm {
-  name: string;
-  email: string;
-  message: string;
-}
-
-type StatusMessage = "" | "sending" | "success" | "error";
-
 type Skill = {
   name: string;
   category: string;
-  badge?: string; // <- made optional
+  badge?: string;
 };
 
 // ============================================================================
@@ -49,90 +43,23 @@ const SOCIAL_LINKS = [
 // ============================================================================
 
 export default function Home() {
-  // --------------------------------------------------------------------------
-  // STATE MANAGEMENT
-  // --------------------------------------------------------------------------
-  
-  const [form, setForm] = useState<ContactForm>({
-    name: "",
-    email: "",
-    message: "",
-  });
-  
-  const [status, setStatus] = useState<StatusMessage>("");
-
-  // --------------------------------------------------------------------------
-  // EVENT HANDLERS
-  // --------------------------------------------------------------------------
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setStatus("sending");
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      if (res.ok) {
-        setStatus("success");
-        setForm({ name: "", email: "", message: "" });
-        setTimeout(() => setStatus(""), 5000);
-      } else {
-        setStatus("error");
-      }
-    } catch (error) {
-      console.error("Contact form error:", error);
-      setStatus("error");
-    }
-  }
-
-  function handleInputChange(
-    field: keyof ContactForm,
-    value: string
-  ) {
-    setForm((prev) => ({ ...prev, [field]: value }));
-  }
-
-  function getStatusMessage(): string {
-    switch (status) {
-      case "sending":
-        return "⏳ Sending your message...";
-      case "success":
-        return "✅ Message sent successfully!";
-      case "error":
-        return "❌ Something went wrong. Please try again.";
-      default:
-        return "";
-    }
-  }
-
-  // --------------------------------------------------------------------------
-  // RENDER
-  // --------------------------------------------------------------------------
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-zinc-950 dark:via-zinc-900 dark:to-black">
       <div className="fixed inset-0 bg-gradient-to-tr from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none" />
       
       <div className="relative">
-        <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800/50 shadow-sm">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-xl sm:text-2xl">⚡</span>
-                <span className="font-bold text-sm sm:text-base text-zinc-900 dark:text-zinc-100">KingZyphor</span>
-              </div>
-              <div className="flex gap-3 sm:gap-6">
-                <a href="#about" className="nav-link">About</a>
-                <a href="#skills" className="nav-link">Skills</a>
-                <a href="#contact" className="nav-link">Contact</a>
-              </div>
-            </div>
-          </div>
-        </nav>
+        {/* Announcement Bar */}
+        <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white py-3 px-4 text-center">
+          <p className="text-sm sm:text-base font-medium">
+            <span className="text-lg mr-2">🎨</span>
+            <strong>Announcement:</strong> I am now accepting picture editing requests for free!{" "}
+            <Link href="/photography" className="underline hover:text-blue-100 transition-colors font-semibold">
+              Learn More
+            </Link>
+          </p>
+        </div>
+
+        <Navigation />
 
         <main className="max-w-6xl mx-auto px-6 py-20">
           <section className="min-h-[80vh] flex flex-col justify-center items-center text-center mb-32">
@@ -157,16 +84,31 @@ export default function Home() {
             </h1>
 
             <p className="max-w-2xl text-xl text-zinc-700 dark:text-zinc-300 leading-relaxed mb-8">
-              Beginner web developer passionate about{" "}
+              Beginner web developer and photo editor passionate about{" "}
               <span className="text-blue-600 dark:text-blue-400 font-semibold">modern web technologies</span>{" "}
-              and creating intuitive user experiences with{" "}
-              <span className="text-purple-600 dark:text-purple-400 font-semibold">clean, readable code</span>.
+              and{" "}
+              <span className="text-purple-600 dark:text-purple-400 font-semibold">enhancing gaming screenshots</span>{" "}
+              with clean, professional results.
             </p>
 
+            {/* Free Services Notice Box */}
+            <div className="max-w-2xl mx-auto mb-8 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border-2 border-green-300 dark:border-green-700/50 rounded-xl p-6 shadow-lg">
+              <div className="flex items-center justify-center gap-3 mb-2">
+                <span className="text-3xl">🎉</span>
+                <h3 className="text-xl font-bold text-green-900 dark:text-green-300">
+                  All Services Free!
+                </h3>
+                <span className="text-3xl">🎉</span>
+              </div>
+              <p className="text-green-800 dark:text-green-200 font-medium">
+                All development help and photo editing services are completely free until further notice!
+              </p>
+            </div>
+
             <div className="flex gap-4">
-              <a href="#contact" className="btn-primary">
+              <Link href="/contact" className="btn-primary">
                 Get in Touch
-              </a>
+              </Link>
               <a href="#skills" className="btn-secondary">
                 View Skills
               </a>
@@ -176,26 +118,39 @@ export default function Home() {
           <section id="about" className="mb-32 scroll-mt-20">
             <h2 className="section-title">About Me</h2>
             
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
               <div className="feature-card">
-                <div className="text-4xl mb-4">🚀</div>
+                <div className="text-4xl mb-4">💻</div>
                 <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
-                  The Journey
+                  Web Development
                 </h3>
                 <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
                   Started web development a few months ago and fell in love with 
-                  bringing ideas to life through code and design.
+                  bringing ideas to life through code and design. I focus on writing 
+                  clean, well-structured code.
                 </p>
               </div>
 
               <div className="feature-card">
-                <div className="text-4xl mb-4">💡</div>
+                <div className="text-4xl mb-4">🎨</div>
                 <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
-                  My Focus
+                  Photo Editing
                 </h3>
                 <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                  Writing clean, well-structured code while continuously learning 
-                  modern frameworks and best practices.
+                  Specialized in enhancing gaming screenshots and bringing out better 
+                  detail and quality. I offer free editing services to make your images 
+                  look professional.
+                </p>
+              </div>
+
+              <div className="feature-card">
+                <div className="text-4xl mb-4">🚀</div>
+                <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
+                  Continuous Learning
+                </h3>
+                <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                  Constantly improving my skills in modern frameworks and tools like 
+                  Next.js and Tailwind CSS, while refining my photo editing techniques.
                 </p>
               </div>
 
@@ -206,7 +161,7 @@ export default function Home() {
                 </h3>
                 <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
                   Growing into a full-stack developer and collaborating on 
-                  real-world projects that make an impact.
+                  real-world projects while helping others enhance their visual content.
                 </p>
               </div>
             </div>
@@ -217,11 +172,17 @@ export default function Home() {
                 love with bringing ideas to life through clean design and interactive user experiences.
                 I focus on writing well-structured, readable code and continuously improving my skills.
                 <br /><br />
+                Alongside development, I also specialize in{" "}
+                <span className="text-purple-600 dark:text-purple-400 font-semibold">photo editing and enhancement</span>,
+                particularly for gaming screenshots. I offer free editing services to help bring out better 
+                detail and quality in images, making them look professional and polished.
+                <br /><br />
                 I'm currently learning frameworks and tools like{" "}
                 <span className="text-blue-600 dark:text-blue-400 font-semibold">Next.js</span> and{" "}
                 <span className="text-purple-600 dark:text-purple-400 font-semibold">Tailwind CSS</span>{" "}
                 to expand my capabilities and create modern web applications. My long-term goal is to 
-                grow into a full-stack developer and assist others in building their projects.
+                grow into a full-stack developer while continuing to help others with both their development 
+                and visual content needs.
               </p>
             </div>
           </section>
@@ -254,82 +215,18 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="contact" className="mb-32 scroll-mt-20">
-            <h2 className="section-title">Let's Connect</h2>
-            
-            <div className="max-w-2xl mx-auto">
-              <p className="text-center text-zinc-700 dark:text-zinc-300 text-lg mb-12">
+          <section className="mb-32">
+            <h2 className="section-title">Get in Touch</h2>
+            <div className="text-center max-w-2xl mx-auto">
+              <p className="text-zinc-700 dark:text-zinc-300 text-lg mb-8">
                 I'm always open to connecting with other developers, creators, or anyone who wants to
-                collaborate on interesting projects. Feel free to reach out — I'd love to hear from you!
+                collaborate on interesting projects. Need help with code or want your gaming screenshots enhanced? 
+                I'm here to help!
               </p>
-
-              <form onSubmit={handleSubmit} className="contact-form">
-                <div className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
-                      Your Name
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      placeholder="John Doe"
-                      value={form.name}
-                      onChange={(e) => handleInputChange("name", e.target.value)}
-                      required
-                      className="input-field"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
-                      Your Email
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      placeholder="john@example.com"
-                      value={form.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      required
-                      className="input-field"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
-                      Your Message
-                    </label>
-                    <textarea
-                      id="message"
-                      placeholder="Tell me about your project or idea..."
-                      value={form.message}
-                      onChange={(e) => handleInputChange("message", e.target.value)}
-                      required
-                      rows={5}
-                      className="input-field resize-none"
-                    />
-                  </div>
-
-                  <button type="submit" disabled={status === "sending"} className="btn-submit">
-                    {status === "sending" ? "Sending..." : "Send Message"}
-                  </button>
-
-                  {status && (
-                    <div
-                      className={`text-center text-sm p-4 rounded-lg font-medium ${
-                        status === "success"
-                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border-2 border-green-300 dark:border-green-500/30"
-                          : status === "error"
-                          ? "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border-2 border-red-300 dark:border-red-500/30"
-                          : "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 border-2 border-blue-300 dark:border-blue-500/30"
-                      }`}
-                    >
-                      {getStatusMessage()}
-                    </div>
-                  )}
-                </div>
-              </form>
-
+              <Link href="/contact" className="btn-primary inline-block">
+                Contact Me
+              </Link>
+              
               <div className="flex flex-wrap gap-4 justify-center mt-8">
                 {SOCIAL_LINKS.map((link) => (
                   <a
@@ -363,4 +260,3 @@ export default function Home() {
     </div>
   );
 }
-// ============================================================================
