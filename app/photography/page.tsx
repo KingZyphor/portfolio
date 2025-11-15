@@ -44,6 +44,32 @@ const PHOTOS: Photo[] = [
     title: "The 2015 Kawasaki Ninja H2 with the sun over the backseat",
     game: "The Crew Motorfest"
   },
+  {
+    id: 4,
+    src: "/exoticcarinthegrasswithnicesky.jpg",
+    alt: "A exotic car parked in the grass with a nice sky",
+    title: "An exotic car parked in the grass with a nice sky",
+    game: "Forza Horizon 5"
+  },
+  {
+    id: 5,
+    src: "/exoticcaringrasswithrainyweather.jpg",
+    alt: "Exotic car parked in the grass during rainy weather",
+    title: "Exotic car parked in the grass during rainy weather",
+    game: "Forza Horizon 5"
+  },{
+    id: 6,
+    src: "/exoticcarparkedonroadinforestwithrainyweather.jpg",
+    alt: "Exotic car parked on road in forest with rainy weather",
+    title: "Exotic car parked on road in forest with rainy weather",
+    game: "Forza Horizon 5"
+  },{
+    id: 7,
+    src: "/2015SRThellcatparkedatbeach.jpg",
+    alt: "2015 SRT Hellcat parked at beach",
+    title: "2015 SRT Hellcat parked at beach",
+    game: "Forza Horizon 5"
+  },
 
  /* 
 // ============================================================================

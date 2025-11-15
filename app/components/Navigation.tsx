@@ -32,6 +32,12 @@ export default function Navigation() {
               Photography
             </Link>
             <Link 
+              href="/links" 
+              className={`nav-link ${isActive("/links") ? "text-blue-600 dark:text-blue-400" : ""}`}
+            >
+              Links
+            </Link>
+            <Link 
               href="/contact" 
               className={`nav-link ${isActive("/contact") ? "text-blue-600 dark:text-blue-400" : ""}`}
             >
